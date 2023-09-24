@@ -22,5 +22,9 @@ public class StringCalculatorTests {
     public void shouldCalculateTwo(){
         Assertions.assertEquals(3,StrCalc.add("1,2"));
     }
+    @Test
+    public void shouldCalculateManyNumbers(){
+        Assertions.assertEquals(20,StrCalc.add("1,2,4,6,7"));
+    }
 
 }
