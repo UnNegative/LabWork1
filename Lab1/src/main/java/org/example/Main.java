@@ -1,14 +1,15 @@
 package org.example;
 
-import org.example.StringCalculator;
 
 public class Main {
-    public static void main(String[] args) /*throws Exception*/ {
+    public static void main(String[] args) throws Exception {
         StringCalculator obj = new StringCalculator();
-            System.out.println(obj.add("1\n2"));
-        } //{System.out.println("ERROR");}
+            System.out.println(obj.add("//#\n1#2"));
+//        System.out.println(obj.DelimiterCutter("//#\n1,2"));
+//        System.out.println("JUnit version is: ");
+//        } //{System.out.println("ERROR");}
 
 //        System.out.println("Hello world!");
 
-    }
+    }}
 
