@@ -36,7 +36,29 @@ public class StringCalculator {
         return Pattern.compile(str).matcher(numStr).find();
     }
 
-    public int add (String numStr) throws StringCalculatorInvalidInputException {
+    boolean HasNegative(String[] numbers){
+        boolean b = false;
+        for (String num : numbers ) {
+            b |= (Integer.parseInt(num)<0);
+        }
+        return b;
+    }
+
+    String ListOfNegatives(String[] numbers){
+        String list = "[";
+        for (String num:numbers) {
+            if (Integer.parseInt(num) < 0){
+                list = list.concat(num);
+                list += ",";
+            }
+        }
+        list = list.substring(0, list.length() - 1);
+        list = list.concat("]");
+        return list;
+    }
+
+    public int add (String numStr) throws StringCalculatorInvalidInputException,StringCalculatorNegativeException {
+        result = 0;
 
         String[] StringMas;
 
@@ -48,9 +70,16 @@ public class StringCalculator {
         StringMas = mySplit(numStr,",\n");
         }
 
-        if (numStr.isEmpty()) {
+        if (StringMas[0].isEmpty()) {
             return result;
         }
+
+        if (HasNegative(StringMas)){
+            String NegationMessage = "Negatives are not allowed : ";
+            NegationMessage = NegationMessage.concat(ListOfNegatives(StringMas));
+            throw new StringCalculatorNegativeException(NegationMessage);
+        }
+
         if (StringMas.length == 1) {
             return Integer.parseInt(StringMas[0]);
         }

@@ -29,36 +29,39 @@ public class StringCalculatorTests {
     }
     @Test
     public void shouldCalculateNewDelimiter(){
-        Assertions.assertEquals(6,StrCalc.add("1,2\n3"));
+        Assertions.assertEquals(7,StrCalc.add("1,2\n4"));
     }
 
     @Test
     public void shouldErrorEndingWithDelimiter(){
         Assertions.assertThrows(StringCalculatorInvalidInputException.class,()->StrCalc.add("1,2\n"));
-    }
-    @Test
-    public void shouldErrorEndingWithDelimiterComma(){
         Assertions.assertThrows(StringCalculatorInvalidInputException.class,()->StrCalc.add("1,2,"));
     }
+//    @Test
+//    public void shouldErrorEndingWithDelimiterComma(){
+//    }
 
-    @Test
-    public void shouldWorkWithTemplateComma(){
-        Assertions.assertEquals(3,StrCalc.add("//,\n1,2"));
-
-    }
+//    @Test
+//    public void shouldWorkWithTemplateComma(){
+//
+//    }
 
     @Test
     public void shouldWorkWithTemplate(){
+        Assertions.assertEquals(3,StrCalc.add("//,\n1,2"));
         Assertions.assertEquals(3,StrCalc.add("//;\n1;2"));
 
     }
+    @Test
+    public void shouldExtractNegativesFromString(){
+        Assertions.assertEquals("[-2,-32]",StrCalc.ListOfNegatives(new String[]{"1", "-2", "-32", "9"}));
+    }
 
-//        Assertions.assertArrayEquals("[-2,-32]",StrCalc.ListOfNegatives("//#\n1#-2#9#-32"));
-//    @Test
-//    public void shouldReturnErrorWithListOfNegatives(){
-//        Assertions.assertThrows(StringCalculatorNegativeException,()->StrCalc.add("//#\n1#-2#9#-32"));
-//        Assertions.assertThrows(StringCalculatorNegativeException,()->StrCalc.add("1,-2\n9,-32"));
-//
-//    }
+    @Test
+    public void shouldReturnErrorWithListOfNegatives(){
+        Assertions.assertThrows(StringCalculatorNegativeException.class,()->StrCalc.add("//#\n1#-2#9#-32"));
+        Assertions.assertThrows(StringCalculatorNegativeException.class,()->StrCalc.add("1,-2\n9,-32"));
+
+    }
 
 }
