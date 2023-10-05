@@ -6,9 +6,6 @@ import java.util.regex.Pattern;
 
 public class StringCalculator {
 
-//    public String numStr;
-    private int result = 0;
-
     public StringCalculator(){}
 
     String[] mySplit(String numStr,String Delimiter) throws StringCalculatorInvalidInputException{ //throws Exception{
@@ -28,7 +25,7 @@ public class StringCalculator {
     }
 
     boolean CheckTemplate(String numStr){
-        return Pattern.compile("//[~/!@#$%^&*)(+=:;.,_?-]\n[0123456789~/!@#$%^&*)(+=.,_?-]").matcher(numStr).find();
+        return Pattern.compile("//[,~/!@#$%^&*)(+=:;._?-]\n[0123456789]+[,~/!@#$%^&*)(+=:;._?-]").matcher(numStr).find();
     }
 
     boolean CheckForDelimiterAtTheEnd (String numStr, String Delimiter){
@@ -58,7 +55,8 @@ public class StringCalculator {
     }
 
     public int add (String numStr) throws StringCalculatorInvalidInputException,StringCalculatorNegativeException {
-        result = 0;
+        //    public String numStr;
+        int result = 0;
 
         String[] StringMas;
 
@@ -80,19 +78,17 @@ public class StringCalculator {
             throw new StringCalculatorNegativeException(NegationMessage);
         }
 
-        if (StringMas.length == 1) {
-            return Integer.parseInt(StringMas[0]);
-        }
-        if (StringMas.length >= 2) {
-            for (String num : StringMas) {
-                result += Integer.parseInt(num);
-            }
-            return result;
-        }
-            return 0;
 
+
+        for (String num : StringMas) {
+            if (!(Integer.parseInt(num)>1000)){
+            result += Integer.parseInt(num);
+            }
+        }
+        return result;
     }
 }
+
 
 
 

@@ -61,7 +61,16 @@ public class StringCalculatorTests {
     public void shouldReturnErrorWithListOfNegatives(){
         Assertions.assertThrows(StringCalculatorNegativeException.class,()->StrCalc.add("//#\n1#-2#9#-32"));
         Assertions.assertThrows(StringCalculatorNegativeException.class,()->StrCalc.add("1,-2\n9,-32"));
-
     }
 
+    @Test
+    public void shouldIgnoreMore1000(){
+        Assertions.assertEquals(1999,StrCalc.add("1000,999,1001"));
+        Assertions.assertEquals(2888,StrCalc.add("//#\n2000#1000#1000#800#1080#80#8#9847")); //ERROR by comma
+    }
+
+//    @Test
+//    public void Should(){
+//        Assertions.assertEquals(17,StrCalc.add("//#,\n10,5,1#1"));
+//    }
 }
