@@ -2,6 +2,7 @@ package org.example;
 
 //import com.sun.jdi.IntegerValue;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
@@ -14,18 +15,53 @@ public class StringCalculator {
         throw new StringCalculatorInvalidInputException("Expression ends with Delimiter");
         }
         return numStr.split("["+Delimiter+"]",0);
+
+
+    }String[] myBetterSplit(String numStr,String Delimiter) throws StringCalculatorInvalidInputException{ //throws Exception{
+
+        if(CheckForDelimiterAtTheEnd(numStr,Delimiter)) {
+        throw new StringCalculatorInvalidInputException("Expression ends with Delimiter");
+        }
+        String setOfSpecials = ".,!@#$%^&*()_+-=/~";
+        String setOfSpecialsEdited = "\\.\\,\\!\\@\\#\\$\\%\\^\\&\\*\\(\\)\\_\\+\\-\\=\\/\\~";
+        Delimiter = Delimiter.replace("*","\\*");
+        Delimiter = Delimiter.replace("$","\\$");
+        Delimiter = Delimiter.replace(".","\\.");
+        Delimiter = Delimiter.replace(",","\\,");
+        Delimiter = Delimiter.replace("!","\\!");
+        Delimiter = Delimiter.replace("&","\\&");
+        Delimiter = Delimiter.replace("?","\\?");
+        Delimiter = Delimiter.replace("#","\\#");
+        Delimiter = Delimiter.replace("-","\\-");
+        Delimiter = Delimiter.replace("+","\\+");
+        Delimiter = Delimiter.replace("~","\\~");
+//        Delimiter = Delimiter.replace("\\","\\\\");
+
+
+        return numStr.split(Delimiter,0);
     }
 
     String DelimiterCutter(String numStr){
         return numStr.substring(numStr.indexOf("\n")+1);
     }
 
-    String DelimiterFinder(String numStr){
+    String DelimiterFinder(String numStr,String index){
+        if(Objects.equals(index, "WithBrackets")){
+
+        //ADD CYCLE AND VARIABLE FOR MORE BRACKETS SITUATION
+
+        return numStr.substring(numStr.indexOf("[")+1,numStr.indexOf("]"));
+        }
+
         return numStr.substring(numStr.indexOf("//")+2,numStr.indexOf("\n"));
     }
 
     boolean CheckTemplate(String numStr){
-        return Pattern.compile("//[,~/!@#$%^&*)(+=:;._?-]\n[0123456789]+[,~/!@#$%^&*)(+=:;._?-]").matcher(numStr).find();
+        return Pattern.compile("//[\\W_]\n[0123456789]+[\\W_]").matcher(numStr).find();
+    }
+    boolean CheckSchemeWithBrackets(String numStr){
+        return Pattern.compile("//\\[*[\\W,#;_]*[\\W,#;_]]\n[0123456789]*([\\W,#;_])").matcher(numStr).find();
+//        return Pattern.compile("//\\[\\W,#;_+]\\n(\\d+(\\*+\\d+)*)*").matcher(numStr).find();
     }
 
     boolean CheckForDelimiterAtTheEnd (String numStr, String Delimiter){
@@ -60,13 +96,15 @@ public class StringCalculator {
 
         String[] StringMas;
 
-        if (CheckTemplate(numStr)){
+        if (CheckSchemeWithBrackets(numStr)) {
+            StringMas = myBetterSplit(DelimiterCutter(numStr), DelimiterFinder(numStr, "WithBrackets"));
+        } else
+        if (CheckTemplate(numStr)) {
 
-        StringMas = mySplit(DelimiterCutter(numStr),DelimiterFinder(numStr));
-        }
-        else{
-        StringMas = mySplit(numStr,",\n");
-        }
+            StringMas = mySplit(DelimiterCutter(numStr), DelimiterFinder(numStr, ""));
+            } else {
+                StringMas = mySplit(numStr, ",\n");
+            }
 
         if (StringMas[0].isEmpty()) {
             return result;

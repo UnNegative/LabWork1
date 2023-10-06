@@ -36,6 +36,8 @@ public class StringCalculatorTests {
     public void shouldErrorEndingWithDelimiter(){
         Assertions.assertThrows(StringCalculatorInvalidInputException.class,()->StrCalc.add("1,2\n"));
         Assertions.assertThrows(StringCalculatorInvalidInputException.class,()->StrCalc.add("1,2,"));
+        Assertions.assertThrows(StringCalculatorInvalidInputException.class,()->StrCalc.add("//[,]\n1,2,"));
+
     }
 //    @Test
 //    public void shouldErrorEndingWithDelimiterComma(){
@@ -69,8 +71,23 @@ public class StringCalculatorTests {
         Assertions.assertEquals(2888,StrCalc.add("//#\n2000#1000#1000#800#1080#80#8#9847")); //ERROR by comma
     }
 
+    @Test
+    public void ShouldSeeLongDelimiters() {
+        Assertions.assertTrue(StrCalc.CheckSchemeWithBrackets("//[*]\n10*5*1*1"));
+        Assertions.assertTrue(StrCalc.CheckSchemeWithBrackets("//[**]\n10**5**1**1"));
+        Assertions.assertTrue(StrCalc.CheckSchemeWithBrackets("//[***]\n10***5***1***1"));
+    }
+
+        @Test
+        public void ShouldCalculateLongDelimiters(){
+        Assertions.assertEquals(17,StrCalc.add("//[***]\n10***5***1***1"));
+        Assertions.assertEquals(17,StrCalc.add("//[$$]\n10$$5$$1$$1"));
+        Assertions.assertEquals(17,StrCalc.add("//[$%]\n10$%5$%1$%1"));
+
+    }
+
 //    @Test
 //    public void Should(){
-//        Assertions.assertEquals(17,StrCalc.add("//#,\n10,5,1#1"));
+//        Assertions.assertEquals(2,StrCalc.add("//[sf]\n1sf1"));
 //    }
 }
