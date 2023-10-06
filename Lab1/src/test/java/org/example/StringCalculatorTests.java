@@ -73,9 +73,9 @@ public class StringCalculatorTests {
 
     @Test
     public void ShouldSeeLongDelimiters() {
-        Assertions.assertTrue(StrCalc.CheckSchemeWithBrackets("//[*]\n10*5*1*1"));
-        Assertions.assertTrue(StrCalc.CheckSchemeWithBrackets("//[**]\n10**5**1**1"));
-        Assertions.assertTrue(StrCalc.CheckSchemeWithBrackets("//[***]\n10***5***1***1"));
+        Assertions.assertTrue(StrCalc.CheckSingleSchemeWithBrackets("//[*]\n10*5*1*1"));
+        Assertions.assertTrue(StrCalc.CheckSingleSchemeWithBrackets("//[**]\n10**5**1**1"));
+        Assertions.assertTrue(StrCalc.CheckSingleSchemeWithBrackets("//[***]\n10***5***1***1"));
     }
 
         @Test
@@ -86,8 +86,13 @@ public class StringCalculatorTests {
 
     }
 
-//    @Test
-//    public void Should(){
-//        Assertions.assertEquals(2,StrCalc.add("//[sf]\n1sf1"));
-//    }
+    @Test
+    public void ShouldSeeManyDelimiters(){
+        Assertions.assertTrue(StrCalc.CheckMultiSchemeWithBrackets("//[*][%]\n1*2%3"));
+    }
+    @Test
+    public void ShouldCalculateManyDelimiters(){
+        Assertions.assertEquals(6,StrCalc.add("//[*][%]\n1*2%3"));
+        Assertions.assertEquals(15,StrCalc.add("//[&][@][-][=]\n1&2@3-4=5"));
+    }
 }
