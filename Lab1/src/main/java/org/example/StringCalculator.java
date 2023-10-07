@@ -5,6 +5,7 @@ package org.example;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StringCalculator {
@@ -86,7 +87,7 @@ public class StringCalculator {
         return numStr.substring(numStr.indexOf("\n")+1);
     }
 
-    String DelimiterFinder(String numStr,String index){
+    String DelimiterFinder(String numStr){
 //        if(Objects.equals(index, "WithBrackets")){
 //
 //        //ADD CYCLE AND VARIABLE FOR MORE BRACKETS SITUATION
@@ -97,14 +98,47 @@ public class StringCalculator {
         return numStr.substring(numStr.indexOf("//")+2,numStr.indexOf("\n"));
     }
 
-    private String[] MasDelimiterFinder(String numStr) {
-        ArrayList<String> temp = new ArrayList<>();
-        while (numStr.contains("[")&&numStr.contains("]")){
-            temp.add(numStr.substring(numStr.indexOf("[")+1,numStr.indexOf("]")));
-            numStr = numStr.replaceFirst("\\[*.]","");
+
+
+
+
+
+
+    public static String[] MasDelimiterFinder(String numStr) {
+        ArrayList<String> valuesInBrackets = new ArrayList<>();
+        int startIndex, endIndex;
+
+        while ((startIndex = numStr.indexOf('[')) != -1 && (endIndex = numStr.indexOf(']', startIndex)) != -1) {
+            // Extract the value within the brackets
+            String value = numStr.substring(startIndex + 1, endIndex);
+
+            // Add the extracted value to the list
+            valuesInBrackets.add(value);
+
+            // Remove the extracted value (including brackets) from the input string
+            numStr = numStr.substring(0, startIndex) + numStr.substring(endIndex + 1);
         }
-        return temp.toArray(new String[0]);
+
+        return valuesInBrackets.toArray(new String[0]);
     }
+
+
+
+
+
+
+
+
+//    private String[] MasDelimiterFinder(String numStr) {
+//        ArrayList<String> temp = new ArrayList<>();
+//        while (numStr.contains("[")&&numStr.contains("]")){
+//            temp.add(numStr.substring(numStr.indexOf("[")+1,numStr.indexOf("]")));
+//            numStr = numStr.replaceFirst("\\[{0,}.]","");
+//        }
+//        return temp.toArray(new String[0]);
+//    }
+
+
 
 //    String [] BetterDelimiterFinder(String numStr,String index) {
 //    }
@@ -162,7 +196,7 @@ public class StringCalculator {
         } else
         if (CheckTemplate(numStr)) {
 
-            StringMas = mySplit(DelimiterCutter(numStr), DelimiterFinder(numStr, ""));
+            StringMas = mySplit(DelimiterCutter(numStr), DelimiterFinder(numStr));
             } else {
                 StringMas = mySplit(numStr, ",\n");
             }
