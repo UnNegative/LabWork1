@@ -95,4 +95,17 @@ public class StringCalculatorTests {
         Assertions.assertEquals(6,StrCalc.add("//[*][%]\n1*2%3"));
         Assertions.assertEquals(15,StrCalc.add("//[&][@][-][=]\n1&2@3-4=5"));
     }
+
+    @Test
+    public void ShouldSeeManyMultiDelimiters(){
+        Assertions.assertTrue(StrCalc.CheckMultiSchemeWithBrackets("//[**][****][&&][$]\n1$2****3**4$5&&6****7"));
+        Assertions.assertTrue(StrCalc.CheckMultiSchemeWithBrackets("//[*][**][***]\n1*2***3**4"));
+    }
+    @Test
+    public void ShouldCalculateManyMultiDelimiters(){
+
+        Assertions.assertEquals(3,StrCalc.add("//[**][+]\n1**1+1"));
+        Assertions.assertEquals(28,StrCalc.add("//[**][****][&&][$]\n1$2****3**4$5&&6****7"));
+        Assertions.assertEquals(10,StrCalc.add("//[*][**][***]\n1*2***3**4"));
+    }
 }
