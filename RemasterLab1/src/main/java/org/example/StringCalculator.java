@@ -17,13 +17,17 @@ public class StringCalculator {
         if (numStr.split(",").length == 1) {
             return Integer.parseInt(numStr);
         }
-        if (numStr.split(",").length >= 2) {
+        if (numStr.split(",").length == 2) {
             for (String num : numStr.split(",")) {
                 result += Integer.parseInt(num);
             }
             return result;
         }
-            return 0;
+            if (numStr.split(",").length >2) {
+                System.out.println("ERROR More than 2 numbers inserted");
+
+            }
+            return result;
     }
     }
 
