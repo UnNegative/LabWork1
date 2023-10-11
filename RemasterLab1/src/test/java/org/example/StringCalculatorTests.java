@@ -12,21 +12,29 @@ public class StringCalculatorTests {
     public void shouldCalculateEmpty(){
         Assertions.assertEquals(0,StrCalc.add(""));
     }
-
     @Test
     public void shouldCalculateOne (){
         Assertions.assertEquals(1,StrCalc.add("1"));
     }
-
     @Test
     public void shouldCalculateTwo() {
         Assertions.assertEquals(3, StrCalc.add("1,2"));
     }
-
     @Test
     public void ShouldCalculateTwoOrMore(){
         Assertions.assertEquals(6,StrCalc.add("1,2,3"));
         Assertions.assertEquals(10,StrCalc.add("1,2,3,4"));
-
+        }
+    @Test
+    public void ShouldErrorTwoNearDelimiters(){
+        Assertions.assertThrows(StringCalculatorInvalidInputException.class,()->StrCalc.add("1,2,\n"));
+        }
+    @Test
+    public void ShouldCalculateNewDelimiter(){
+        Assertions.assertEquals(3,StrCalc.add("1,1\n1"));
+    }
+    @Test
+    public void ShouldErrorIfDelimiterAtTheEnd(){
+        Assertions.assertThrows(StringCalculatorInvalidInputException.class,()->StrCalc.add("1,2\n3,"));
     }
 }
