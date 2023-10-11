@@ -1,8 +1,8 @@
 package org.example;
 
-public class StringCalculatorInvalidInput {
+public class StringCalculatorInvalidInputException extends IllegalArgumentException{
 
-    public StringCalculatorInvalidInput(String message){
-        super();
+    public StringCalculatorInvalidInputException(String message){
+        super(message);
     }
 }
