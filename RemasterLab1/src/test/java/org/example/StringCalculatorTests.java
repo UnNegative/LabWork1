@@ -24,7 +24,9 @@ public class StringCalculatorTests {
     }
 
     @Test
-    public void ShouldFailTwoOrMore(){
-        Assertions.assertThrows(StringCalculatorInvalidInputException.class,()->StrCalc.add("1,2,3"));
+    public void ShouldCalculateTwoOrMore(){
+        Assertions.assertEquals(6,StrCalc.add("1,2,3"));
+        Assertions.assertEquals(10,StrCalc.add("1,2,3,4"));
+
     }
 }
