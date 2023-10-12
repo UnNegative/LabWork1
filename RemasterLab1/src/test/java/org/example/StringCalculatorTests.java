@@ -43,5 +43,9 @@ public class StringCalculatorTests {
         Assertions.assertEquals(3,StrCalc.add("//p\n1p1p1"));
         Assertions.assertEquals(3,StrCalc.add("//p\n1\n1,1"));
     }
-
+    @Test
+    public void ShouldErrorWithNegatives(){
+        Assertions.assertThrows(StringCalculatorNegativeException.class,()->StrCalc.add("-1,1,-2,-3,2"));
+        Assertions.assertThrows(StringCalculatorNegativeException.class,()->StrCalc.add("//#\n1#-1#-2"));
+    }
 }

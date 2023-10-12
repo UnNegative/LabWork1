@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-import static java.util.regex.Pattern.*;
+//import static java.util.regex.Pattern.*;
 
 public class StringCalculator {
 
@@ -38,7 +38,31 @@ public class StringCalculator {
         return sLst.contains("");
     }
 
-    int add(String numbers) throws StringCalculatorInvalidInputException {
+
+    boolean HasNegative(String[] numbers){
+        boolean b = false;
+        for (String num : numbers ) {
+            b |= (Integer.parseInt(num)<0);
+        }
+        return b;
+    }
+
+    String ListOfNegatives(String[] numbers){
+        String list = "[";
+        for (String num:numbers) {
+            if (Integer.parseInt(num) < 0){
+                list = list.concat(num);
+                list += ",";
+            }
+        }
+        list = list.substring(0, list.length() - 1);
+        list = list.concat("]");
+        return list;
+    }
+
+
+
+    int add(String numbers) throws StringCalculatorInvalidInputException, StringCalculatorNegativeException {
 
         int result = 0;
 
@@ -69,6 +93,11 @@ public class StringCalculator {
 //        if (numbers.split(",").length == 1) {
 //            return Integer.parseInt(numbers);
 //        }
+        if(HasNegative(numbers.split(","))){
+            String message ="Negatives not allowed " + ListOfNegatives(numbers.split(","));
+            throw new StringCalculatorNegativeException(message);
+        }
+
         if (numbers.split(",").length >= 2) {
             for (String num : numbers.split(",")) {
                 result += Integer.parseInt(num);
