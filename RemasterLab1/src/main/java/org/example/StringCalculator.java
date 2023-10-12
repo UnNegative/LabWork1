@@ -36,6 +36,13 @@ public class StringCalculator {
         return numStr.substring(numStr.indexOf("\n")+1);
     }
 
+    public static String[] SortStringsByLength(String[] strings) {
+        Arrays.sort(strings, (str1, str2) -> Integer.compare(str2.length(), str1.length()));
+        return strings;
+    }
+
+
+
     String DelimiterReplacement(String numbers,String[] delimiters) {
         for (String delimiter : delimiters) {
             numbers = numbers.replace(delimiter, ",");
@@ -104,11 +111,11 @@ public class StringCalculator {
         }
 
 
-        if(CheckForNearDelimiters(numbers,delimiters.toArray(new String[0]))){
+        if(CheckForNearDelimiters(numbers,SortStringsByLength(delimiters.toArray(new String[0])))){
             throw new StringCalculatorInvalidInputException("Near Delimiters not allowed!");
         }
 
-        numbers = DelimiterReplacement(numbers,delimiters.toArray(new String[0]));
+        numbers = DelimiterReplacement(numbers,SortStringsByLength(delimiters.toArray(new String[0])));
 
 //        if (numbers.split(",").length == 1) {
 //            return Integer.parseInt(numbers);
