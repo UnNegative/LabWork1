@@ -48,4 +48,9 @@ public class StringCalculatorTests {
         Assertions.assertThrows(StringCalculatorNegativeException.class,()->StrCalc.add("-1,1,-2,-3,2"));
         Assertions.assertThrows(StringCalculatorNegativeException.class,()->StrCalc.add("//#\n1#-1#-2"));
     }
+    @Test
+    public void ShouldIgnoreNumbersMoreThan1000(){
+        Assertions.assertEquals(1999,StrCalc.add("1000,1001\n999"));
+        Assertions.assertEquals(1001,StrCalc.add("//;\n1001,2002,1,1000"));
+    }
 }

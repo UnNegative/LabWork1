@@ -100,7 +100,9 @@ public class StringCalculator {
 
         if (numbers.split(",").length >= 2) {
             for (String num : numbers.split(",")) {
-                result += Integer.parseInt(num);
+                if(Integer.parseInt(num)<1001){
+                    result += Integer.parseInt(num);
+                }
             }
             return result;
         }
