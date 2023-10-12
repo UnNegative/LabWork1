@@ -54,8 +54,14 @@ public class StringCalculatorTests {
         Assertions.assertEquals(1001,StrCalc.add("//;\n1001,2002,1,1000"));
     }
     @Test
-    public void ShouldCalculateUserMultiDelimiters(){
-        Assertions.assertEquals(3,StrCalc.add("//[pr]\n1pr1pr1"));
-        Assertions.assertEquals(3,StrCalc.add("//[***]\n1***1***1"));
+    public void ShouldCalculateUserMultiDelimiters() {
+        Assertions.assertEquals(3, StrCalc.add("//[pr]\n1pr1pr1"));
+        Assertions.assertEquals(3, StrCalc.add("//[***]\n1***1***1"));
     }
+        @Test
+    public void ShouldCalculateTwoOrMoreUserDelimiters(){
+        Assertions.assertEquals(6,StrCalc.add("//[p][q]\n1p1q1q1,1\n1"));
+        Assertions.assertEquals(5,StrCalc.add("//[*][-][#]\n1-1*1,1-1"));
+    }
+
 }
