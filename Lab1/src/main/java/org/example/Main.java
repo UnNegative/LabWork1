@@ -1,17 +1,15 @@
 //package org.example;
 //
 //
-//import java.util.Scanner;
-//
 //public class Main {
 //    public static void main(String[] args) throws Exception {
-//        String input = "//[*]\n3*4*5";
+//        StringCalculator obj = new StringCalculator();
+////            System.out.println(obj.add("//#\n1#-29#-33#-52#6"));
+////        System.out.println(obj.DelimiterCutter("//#\n1,2"));
+////        System.out.println("JUnit version is: ");
+////        } //{System.out.println("ERROR");}
 //
-//        StringCalculator strC = new StringCalculator();
+////        System.out.println("Hello world!");
 //
-//        System.out.println(strC.add(input));
-//
-//
-//        System.out.println("Програма завершила роботу.");
 ////    }}
 //    }}
