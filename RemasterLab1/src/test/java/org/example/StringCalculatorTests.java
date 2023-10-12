@@ -63,5 +63,11 @@ public class StringCalculatorTests {
         Assertions.assertEquals(6,StrCalc.add("//[p][q]\n1p1q1q1,1\n1"));
         Assertions.assertEquals(5,StrCalc.add("//[*][-][#]\n1-1*1,1-1"));
     }
+    @Test
+    public void ShouldCalculateManyMultiDelimiters(){
 
+        Assertions.assertEquals(3,StrCalc.add("//[**][+]\n1**1+1"));
+        Assertions.assertEquals(28,StrCalc.add("//[**][****][&&][$]\n1$2****3**4$5&&6****7"));
+        Assertions.assertEquals(21,StrCalc.add("//[*][***][****][**]\n1****2**3***4*5**6"));
+    }
 }
