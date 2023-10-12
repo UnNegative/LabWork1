@@ -37,4 +37,11 @@ public class StringCalculatorTests {
     public void ShouldErrorIfDelimiterAtTheEnd(){
         Assertions.assertThrows(StringCalculatorInvalidInputException.class,()->StrCalc.add("1,2\n3,"));
     }
+    @Test
+    public void ShouldCalculateAnyDelimiter(){
+        Assertions.assertEquals(3,StrCalc.add("//;\n1;1;1"));
+        Assertions.assertEquals(3,StrCalc.add("//p\n1p1p1"));
+        Assertions.assertEquals(3,StrCalc.add("//p\n1\n1,1"));
+    }
+
 }
