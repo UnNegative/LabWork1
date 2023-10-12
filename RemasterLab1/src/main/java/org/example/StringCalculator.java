@@ -13,6 +13,22 @@ public class StringCalculator {
     public StringCalculator(){}
 
 
+    public static ArrayList<String> MasDelimiterFinder(String numStr) {
+        ArrayList<String> valuesInBrackets = new ArrayList<>();
+        int startIndex, endIndex;
+
+        while ((startIndex = numStr.indexOf('[')) != -1 && (endIndex = numStr.indexOf(']', startIndex)) != -1) {
+            String value = numStr.substring(startIndex + 1, endIndex);
+            valuesInBrackets.add(value);
+            numStr = numStr.substring(0, startIndex) + numStr.substring(endIndex + 1);
+        }
+
+        return valuesInBrackets;
+    }
+
+    boolean CheckMultiSchemeWithBrackets(String numStr){
+        return Pattern.compile("//\\[*[\\D&&[^\\[\\]]]*[\\D&&[^\\[\\]]]]\\n*(\\d*(\\D)*(\\D))").matcher(numStr).find();
+}
     String DelimiterFinder(String numbers){
         return numbers.substring(numbers.indexOf("/")+2,numbers.indexOf("\n"));
     }
@@ -75,12 +91,16 @@ public class StringCalculator {
         delimiters.add("\n");
 
 
-
         numbers +=",0";
-
+        if(CheckMultiSchemeWithBrackets(numbers)) {
+            delimiters.addAll(MasDelimiterFinder(numbers));
+            numbers = DelimiterCutter(numbers);
+        }
+            else{
         if(CheckForTemplate(numbers)){
             delimiters.add((DelimiterFinder(numbers)));
             numbers = DelimiterCutter(numbers);
+        }
         }
 
 
