@@ -50,6 +50,13 @@ public class Matrix {
             }
         }
     }
+    public void fillingMatrixFromArray(double[][] values,Matrix matrix){
+        for (int i = 0; i<matrix.getRows();i++){
+            for (int j = 0; j< matrix.getColumns();j++){
+                writeElem(matrix.content,values[i][j],i,j);
+            }
+        }
+    }
 
     void writeElem(double[][] content,double value,int row,int column){
         content[row][column] = value;
@@ -63,6 +70,36 @@ public class Matrix {
         this.columns = columns;
     }
 
+    double getElem(int row,int column){
+        if(row >= rows || row<0 ||column>=columns || column<0){
+            throw new OutOfMatrixException("Out of matrix size element!");
+        }
+        return content[row][column];
+    }
+
+    Matrix getRow(int row) throws OutOfMatrixException{
+        if(row >= rows || row<0){
+            throw new OutOfMatrixException("Out of matrix size element!");
+        }
+        Matrix matrix =new Matrix(1,columns);
+        for (int i=0;i<columns;i++){
+            writeElem(matrix.getContent(),content[row][i],0,i);
+        }
+        return matrix;
+    }
+
+    Matrix getColumn(int column) throws OutOfMatrixException{
+        if(column >= columns || column<0) {
+            throw new OutOfMatrixException("Out of matrix size element!");
+        }
+        Matrix matrix =new Matrix(rows,1);
+        for (int i=0;i<rows;i++){
+            writeElem(matrix.getContent(),content[i][column],i,0);
+        }
+        return matrix;
+    }
+
+
     int getRows(){
         return this.rows;
     }
@@ -71,5 +108,8 @@ public class Matrix {
     }
     double[][] getContent(){
         return content;
+    }
+    int[] getSize(){
+        return new int[]{rows,columns};
     }
 }
