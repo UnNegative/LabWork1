@@ -15,6 +15,7 @@ public class Matrix {
         createMatrix(0,0);
     }
 
+    //Create Matrix ( row x column )
     public Matrix(int row,int column) throws NegativeMatrixSizeException{
         if (row<0 || column<0)
         {
@@ -25,6 +26,7 @@ public class Matrix {
         createMatrix(row,column);
     }
 
+    //copying matrix Constructor A[MxK]  -> B[MxK]
     public Matrix(Matrix myMatrice){
         setRows(myMatrice.rows);
         setColumns(myMatrice.columns);
@@ -38,7 +40,21 @@ public class Matrix {
 
     void copyMatrix(Matrix matrice){
         content = new double[matrice.rows][matrice.columns];
+        fillingMatrix(matrice,content);
     }
+
+    public void fillingMatrix(Matrix matrice,double[][] contentB){
+        for (int i = 0; i<matrice.getRows();i++){
+            for (int j = 0; j< matrice.getColumns();j++){
+                writeElem(contentB,matrice.content[i][j],i,j);
+            }
+        }
+    }
+
+    void writeElem(double[][] content,double value,int row,int column){
+        content[row][column] = value;
+    }
+
     public void setRows(int rows) {
         this.rows = rows;
     }
@@ -52,5 +68,8 @@ public class Matrix {
     }
     int getColumns(){
         return this.columns;
+    }
+    double[][] getContent(){
+        return content;
     }
 }
