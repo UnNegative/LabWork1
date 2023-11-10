@@ -1,6 +1,8 @@
 package org.example;
 
 import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Matrix {
 
@@ -9,14 +11,14 @@ public class Matrix {
     private double[][] content;
 
     //Empty matrix
-    public Matrix(){
+    public Matrix() throws MuteImmutableException{
         setRows(0);
         setColumns(0);
         createMatrix(0,0);
     }
 
     //Create Matrix ( row x column )
-    public Matrix(int row,int column) throws NegativeMatrixSizeException{
+    public Matrix(int row,int column) throws NegativeMatrixSizeException, MuteImmutableException {
         if (row<0 || column<0)
         {
             throw new NegativeMatrixSizeException("Negative number of rows or columns!");
@@ -27,7 +29,7 @@ public class Matrix {
     }
 
     //copying matrix Constructor A[MxK]  -> B[MxK]
-    public Matrix(Matrix myMatrice){
+    public Matrix(Matrix myMatrice) throws MuteImmutableException {
         setRows(myMatrice.rows);
         setColumns(myMatrice.columns);
         copyMatrix(myMatrice);
@@ -62,11 +64,11 @@ public class Matrix {
         content[row][column] = value;
     }
 
-    public void setRows(int rows) {
+    public void setRows(int rows) throws MuteImmutableException {
         this.rows = rows;
     }
 
-    public void setColumns(int columns) {
+    public void setColumns(int columns) throws MuteImmutableException {
         this.columns = columns;
     }
 
@@ -77,7 +79,7 @@ public class Matrix {
         return content[row][column];
     }
 
-    Matrix getRow(int row) throws OutOfMatrixException{
+    Matrix getRow(int row) throws OutOfMatrixException, MuteImmutableException {
         if(row >= rows || row<0){
             throw new OutOfMatrixException("Out of matrix size element!");
         }
@@ -88,7 +90,7 @@ public class Matrix {
         return matrix;
     }
 
-    Matrix getColumn(int column) throws OutOfMatrixException{
+    Matrix getColumn(int column) throws OutOfMatrixException, MuteImmutableException {
         if(column >= columns || column<0) {
             throw new OutOfMatrixException("Out of matrix size element!");
         }
@@ -99,6 +101,22 @@ public class Matrix {
         return matrix;
     }
 
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Matrix matrix = (Matrix) o;
+        return getRows() == matrix.getRows() && getColumns() == matrix.getColumns() && Arrays.deepEquals(getContent(), matrix.getContent());
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Objects.hash(getRows(), getColumns());
+        result = 41 * result + Arrays.deepHashCode(getContent());
+        return result;
+    }
 
     int getRows(){
         return this.rows;
