@@ -68,7 +68,7 @@ public class LabTests {
         Assertions.assertTrue(A.equals(B));
         Assertions.assertTrue(A.hashCode()==B.hashCode());
         Assertions.assertTrue(A.hashCode()==A.hashCode());
-        B.writeElem(B.getContent(), 21,0,0);
+        B.setElem( 0,0,21);
         Assertions.assertFalse(A.equals(B));
         Assertions.assertTrue(A.hashCode()!=B.hashCode());
 
@@ -122,14 +122,68 @@ public class LabTests {
     @Test
     void ImmutableTest() throws MuteImmutableException {
         Matrix A = new Matrix(5, 4);
-        double[][] val = {{1,  2,  3,  4 },
-                          {5,  6,  7,  8 },
-                          {9,  10, 11, 12},
-                          {13, 14, 15, 16},
-                          {17, 18, 19, 20}};
-        A.fillingMatrixFromArray(val,A);
-        Assertions.assertThrows(MuteImmutableException.class,()->new ImmutableMatrix(A).setRows(7));
-        Assertions.assertThrows(MuteImmutableException.class,()->new ImmutableMatrix(A).setColumns(7));
-
+        double[][] val = {{1, 2, 3, 4},
+                {5, 6, 7, 8},
+                {9, 10, 11, 12},
+                {13, 14, 15, 16},
+                {17, 18, 19, 20}};
+        A.fillingMatrixFromArray(val, A);
+        Assertions.assertThrows(MuteImmutableException.class, () -> new ImmutableMatrix(A).setRows(7));
+        Assertions.assertThrows(MuteImmutableException.class, () -> new ImmutableMatrix(A).setColumns(7));
+        Assertions.assertThrows(MuteImmutableException.class, () -> new ImmutableMatrix(A).setElem(2, 2, 7));
     }
+    @Test
+    void AdditionTest() throws MuteImmutableException{
+            Matrix A = new Matrix(5, 4);
+            double[][] val1 = {{1,  2,  3,  4 },
+                               {5,  6,  7,  8 },
+                               {9,  10, 11, 12},
+                               {13, 14, 15, 16},
+                               {17, 18, 19, 20}};
+
+        double[][] val2 = {{2,   4,  6,  8 },
+                           {10, 12, 14,  16},
+                           {18, 20, 22,  24},
+                           {26, 28, 30,  32},
+                           {34, 36, 38,  40}};
+
+        Matrix B = new Matrix(5,4);
+        Matrix C = new Matrix(5,4);
+        Matrix D = new Matrix(5,4);
+
+        A.fillingMatrixFromArray(val1, A);
+        D.fillingMatrixFromArray(val2, D);
+
+        B=Matrix.add(A,A);
+        C=Matrix.multiplicate(A,2);
+        Assertions.assertTrue(B.equals(D));
+        Assertions.assertTrue(C.equals(D));
+        Assertions.assertTrue(C.equals(B));
+
+        }
+    @Test
+    void MatrixMultiplication() throws MuteImmutableException{
+        Matrix A=new Matrix(2,2);
+        Matrix B=new Matrix(2,2);
+        Matrix C=new Matrix(2,2);
+        double[][] val1 ={{2,1},{1,0}};
+        double[][] val2 ={{5,2},{2,1}};
+        A.fillingMatrixFromArray(val1,A);
+        B.fillingMatrixFromArray(val2,B);
+        C = Matrix.multiplicate(A,A);
+        Assertions.assertTrue(B.equals(C));
+    }
+    @Test
+    void TransposeMatrix() throws MuteImmutableException{
+        Matrix A=new Matrix(2,2);
+        Matrix B=new Matrix(2,2);
+        Matrix C=new Matrix(2,2);
+        double[][] val1 ={{1,2},{3,4}};
+        double[][] val2 ={{1,3},{2,4}};
+        A.fillingMatrixFromArray(val1,A);
+        B.fillingMatrixFromArray(val2,B);
+        C = Matrix.transpose(A);
+        Assertions.assertTrue(B.equals(C));
+    }
+
 }
