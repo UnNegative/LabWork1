@@ -1,0 +1,30 @@
+//package org.example;
+//
+//import java.util.Objects;
+//import java.util.Scanner;
+//
+//public class Main {
+//    static String row;
+//    private static final int capacity = 20;
+//    static String column;
+//    static double[][] content;
+//    static String choice = "0";
+//    static String choice1 = "0";
+//    static String choice2 = "0";
+//    static Matrix[] MasMatrices = new Matrix[capacity];
+//    public static void main(String[] args) throws MuteImmutableException {
+////        System.out.println("Fuck me please!");
+//
+//
+//
+////        Matrix A = new Matrix(3,4);
+////        for (int i = 0; i < A.getRows(); i++) {
+////            for (int j = 0; j < A.getColumns(); j++) {
+////                A.setElem(i,j,(double) Math.round(100 * Math.random()) / 10);
+////            }
+////        }
+////
+////        printMas(A,"A-ta");
+////
+////        Matrix Aim =new ImmutableMatrix(A);
+////        printMas(Aim,"Aim-ty");
